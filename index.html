@@ -12,8 +12,8 @@
         content="Operating at the critical intersection of human creativity and automated precision.">
     <meta property="og:type" content="website">
     <title>Totmanschalter | Artistic Direction & Production</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-v4.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon-v4.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png?v=3">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
@@ -28,8 +28,14 @@
             <div class="hover-zone" id="enter-btn"></div>
 
             <!-- Full screen logos -->
-            <img src="images/red_red.png" class="logo-base" alt="Logo Red">
-            <img src="images/black_white_transparent.png" class="logo-hover" alt="Logo BW">
+            <picture class="logo-base">
+                <source media="(max-width: 768px)" srcset="images/red_red_mobile.png">
+                <img src="images/red_red.png" alt="Logo Red" style="width: 100%; height: 100%; object-fit: cover;">
+            </picture>
+            <picture class="logo-hover">
+                <source media="(max-width: 768px)" srcset="images/black_white_mobile.png">
+                <img src="images/black_white.png" alt="Logo BW" style="width: 100%; height: 100%; object-fit: cover;">
+            </picture>
         </div>
     </div>
 
