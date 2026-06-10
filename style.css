@@ -174,7 +174,8 @@ body {
     cursor: pointer;
 }
 
-.hover-zone:hover~.logo-hover {
+.hover-zone:hover~.logo-hover,
+.hover-zone:active~.logo-hover {
     opacity: 1;
 }
 
