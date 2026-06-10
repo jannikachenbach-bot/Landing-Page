@@ -110,7 +110,7 @@ body {
     height: 100%;
     z-index: 100;
     background-color: var(--bg-color);
-    transition: opacity 1s ease, visibility 1s;
+    transition: opacity 1s ease, visibility 1s, background-color 1s ease;
 }
 
 #landing-view.hidden {
@@ -635,19 +635,31 @@ body {
 }
 
 @media (max-width: 768px) {
+    #landing-view {
+        background-color: #ff0000;
+    }
+    #landing-view:has(.hover-zone:hover),
+    #landing-view:has(.hover-zone:active) {
+        background-color: var(--bg-color);
+    }
     .contact-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        height: 100vh;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        margin-top: 0;
     }
     .contact-info {
-        grid-column: 1;
-        align-items: center;
+        width: 100%;
+        text-align: left;
     }
     .contact-links {
-        grid-column: 1;
+        width: 100%;
         flex-direction: column;
+        align-items: flex-start;
         gap: 20px;
-        align-items: center;
     }
 }
