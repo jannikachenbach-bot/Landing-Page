@@ -117,6 +117,11 @@ body {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    background-color: var(--bg-color) !important;
+}
+
+#landing-view.hidden .logo-hover {
+    opacity: 1 !important;
 }
 
 /* UI Layer (Above 3D) */
