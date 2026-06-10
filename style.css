@@ -679,7 +679,7 @@ body {
         display: none !important;
     }
     .copyright {
-        bottom: 10px;
+        display: none !important;
     }
     #landing-view {
         background-color: transparent;
@@ -692,7 +692,7 @@ body {
         align-items: flex-start;
         height: 100vh;
         padding-top: 40px;
-        padding-bottom: 80px;
+        padding-bottom: 40px;
         margin-top: 0;
     }
     .contact-info {
