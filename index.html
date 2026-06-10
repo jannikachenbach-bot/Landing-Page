@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Totmanschalter: A multidisciplinary practice at the intersection of human creativity and automated precision. Artistic Direction, Production, Architecture and Design.">
+    <meta name="author" content="Totmanschalter">
+    <meta property="og:title" content="Totmanschalter | Artistic Direction & Production">
+    <meta property="og:description"
+        content="Operating at the critical intersection of human creativity and automated precision.">
+    <meta property="og:type" content="website">
+    <title>Totmanschalter | Artistic Direction & Production</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=119">
+</head>
+
+<body>
+    <!-- Landing Page View -->
+    <div id="landing-view">
+        <div class="logo-container">
+            <!-- Interaction Zone FIRST for CSS sibling selection -->
+            <div class="hover-zone" id="enter-btn"></div>
+
+            <!-- Full screen logos -->
+            <img src="images/red_red.png" class="logo-base" alt="Logo Red">
+            <img src="images/black_white.png" class="logo-hover" alt="Logo BW">
+        </div>
+    </div>
+
+    <!-- Contact View -->
+    <div id="contact-view" class="hidden">
+        <div class="contact-content">
+            <div class="contact-info">
+                <span>TOTMANSCHALTER is a spatial design and creative direction practice founded by Jannik Achenbach and Alina Pinardi. The studio conceives, builds, and produces physical environments—from temporary sets to permanent exhibitions.</span>
+                <span>&nbsp;</span>
+                <span>Based in Zurich, working globally.</span>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:Contact@totmanschalter.com" class="contact-link">Contact@totmanschalter.com</a>
+                <a href="https://instagram.com/totmanschalter" target="_blank" class="contact-link">@totmanschalter</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const enterBtn = document.getElementById('enter-btn');
+            const landingView = document.getElementById('landing-view');
+            const contactView = document.getElementById('contact-view');
+
+            if (enterBtn) {
+                enterBtn.addEventListener('click', () => {
+                    landingView.classList.add('hidden');
+                    contactView.classList.remove('hidden');
+                });
+            }
+
+            if (contactView) {
+                contactView.addEventListener('click', (e) => {
+                    // Go back if clicking outside of a link
+                    if (!e.target.closest('.contact-link')) {
+                        contactView.classList.add('hidden');
+                        landingView.classList.remove('hidden');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

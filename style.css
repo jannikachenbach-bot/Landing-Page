@@ -1,0 +1,653 @@
+:root {
+    --bg-color: #fcfcfc;
+    --room-width: 55vmin;
+    --room-height: 75vmin;
+    --room-depth: 55vmin;
+    --wall-scale: 1.6;
+    /* Reduced to allow glimpses of neighboring rooms */
+}
+
+/* ... existing body styles ... */
+
+/* Projects Button (Middle Left) */
+
+.projects-btn {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(0);
+    z-index: 1000;
+    pointer-events: none;
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0px;
+    color: #222222;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.projects-btn.visible {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* About Button (Middle Right) */
+.about-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(0);
+    z-index: 1000;
+    pointer-events: auto;
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0px;
+    color: #222222;
+    text-transform: uppercase;
+    transition: opacity 0.5s ease;
+}
+
+/* Expanded invisible hit area for anticipating hovers */
+.about-btn::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    bottom: -60px;
+    left: -60px;
+    right: -20px;
+    cursor: pointer;
+}
+
+.about-btn.blurred {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.about-btn:hover {
+    opacity: 0.6;
+}
+
+.about-btn.hidden-anim {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.projects-btn:hover {
+    opacity: 0.6;
+    /* Translucent */
+}
+
+.projects-btn.hidden-anim {
+    opacity: 0;
+    pointer-events: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* =========================================
+   Landing Page Styles
+   ========================================= */
+
+#landing-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: var(--bg-color);
+    transition: opacity 1s ease, visibility 1s;
+}
+
+#landing-view.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* UI Layer (Above 3D) */
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    pointer-events: none;
+    /* Click-through by default */
+    opacity: 1;
+    transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+#ui-layer.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.logo-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-base,
+.logo-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+}
+
+.logo-hover {
+    opacity: 0;
+}
+
+.hover-zone {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: 25vh;
+    z-index: 200;
+    cursor: pointer;
+}
+
+.hover-zone:hover~.logo-hover {
+    opacity: 1;
+}
+
+.landing-footer {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: #ff0000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+    display: flex;
+    gap: 5px;
+}
+
+.footer-link,
+.separator {
+    color: inherit;
+    text-decoration: none;
+}
+
+.logo-container:has(.hover-zone:hover)+.landing-footer {
+    color: #222222;
+}
+
+/* =========================================
+   Gallery View Styles - Three.js WebGL
+   ========================================= */
+
+#gallery-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    opacity: 1;
+    transition: opacity 1.5s ease;
+    background-color: var(--bg-color);
+}
+
+#gallery-view.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#gallery-view canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+/* Gallery Caption (Bottom Center) */
+/* Gallery Footer (Dynamic Flex Container) */
+.gallery-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 95vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3vw;
+    z-index: 300;
+    pointer-events: none;
+}
+
+.gallery-caption,
+.gallery-year,
+.gallery-tags {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0px;
+    color: #222222;
+    text-transform: uppercase;
+    transition: opacity 0.6s linear;
+    transition-delay: 0s;
+    opacity: 1;
+    white-space: pre;
+    /* Keep on one line and preserve JS spacing */
+}
+
+.gallery-caption.fade-out,
+.gallery-year.fade-out,
+.gallery-tags.fade-out {
+    opacity: 0;
+    transition-delay: 0s;
+}
+
+/* =========================================
+   About View Styles
+   ========================================= */
+#about-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1500;
+    /* Above gallery, below UI Layer buttons */
+    background-color: var(--bg-color);
+    transition: opacity 0.6s ease, visibility 0.6s ease, background-color 0.6s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.about-logo {
+    display: block;
+    position: absolute;
+    bottom: 5px;
+    /* Keep logo fully visible within viewport */
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    /* containment to ensure text is visible */
+    opacity: 1;
+    z-index: 1;
+    /* Low z-index (background layer) */
+    pointer-events: none;
+    /* Force GPU for smoother scaling (antialiasing) */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+#about-view.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    background-color: transparent;
+}
+
+#about-view.hover-preview {
+    background-color: transparent;
+    pointer-events: none;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.about-content {
+    width: 40%;
+    /* Constraints width */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0px;
+    /* Matching caption style */
+    color: #222222;
+    text-transform: uppercase;
+    line-height: 1.6;
+    text-align: justify;
+
+    position: absolute;
+    /* Position between Projects button (left) and Email (72.5%) */
+    left: 36.25%;
+    /* Center of the space between 0% and 72.5% */
+    top: 50%;
+    transform: translate(-50%, 0);
+    /* Center the element itself */
+    z-index: 20;
+    /* Ensure text is ABOVE the logo */
+    pointer-events: auto;
+}
+
+.about-content::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    bottom: -40px;
+    left: -40px;
+    right: -40px;
+    z-index: -1;
+}
+
+.about-keyword {
+    font-weight: 600;
+}
+
+.about-content p {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+.about-legal {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 8px;
+    letter-spacing: 0px;
+    color: #555555;
+    text-transform: uppercase;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+#about-view.hover-preview .about-legal {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.about-actions {
+    position: absolute;
+    left: 73%;
+    /* Center between text content and about button */
+    top: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.about-actions::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    bottom: -40px;
+    left: -40px;
+    right: -40px;
+    z-index: -1;
+}
+
+.action-link {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0px;
+    color: #222222;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.action-link:hover {
+    opacity: 0.5;
+}
+
+/* =========================================
+   Mobile / Responsive Overrides
+   ========================================= */
+@media (max-width: 768px) {
+    :root {
+        /* Optimize for portrait: taller, narrower room */
+        --room-width: 85vw;
+        --room-height: 55vh;
+        --room-depth: 85vw;
+        --wall-scale: 1.6;
+        /* Force identical wall stretch on mobile */
+    }
+
+    /* UI Layer: Reposition Buttons to Top Corners */
+    .projects-btn {
+        top: 20px;
+        left: 20px;
+        transform: none;
+        /* Remove vertical centering */
+        font-size: 9px;
+        /* Larger tap target */
+        letter-spacing: 0px;
+    }
+
+    .about-btn {
+        top: 20px;
+        right: 20px;
+        transform: none;
+        font-size: 9px;
+        letter-spacing: 0px;
+    }
+
+    /* Caption & Metadata text sizing dynamically via viewport width */
+    .gallery-footer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        transform: none;
+        display: block;
+        /* Disable flex layout for mobile */
+        pointer-events: none;
+        z-index: 300;
+    }
+
+    .gallery-caption {
+        position: absolute;
+        font-size: 9px;
+        line-height: 1.5;
+        white-space: normal;
+        bottom: 40px;
+        width: calc(100% - 40px);
+        left: 20px;
+        transform: none;
+        text-align: justify;
+    }
+
+    .gallery-year {
+        position: absolute;
+        font-size: 9px;
+        bottom: 20px;
+        left: 15vw;
+        right: auto;
+        top: auto;
+    }
+
+    .gallery-tags {
+        position: absolute;
+        font-size: 9px;
+        bottom: 20px;
+        right: 15vw;
+        left: auto;
+        max-width: 60%;
+        white-space: normal;
+        line-height: 1.5;
+        text-align: right;
+    }
+
+    /* About View: Stack Content */
+    .about-content {
+        width: 85%;
+        left: 50%;
+        /* Center horizontally */
+        top: 40%;
+        /* Move up slightly */
+        transform: translate(-50%, -50%);
+        font-size: 13px;
+        /* Readable text */
+        line-height: 1.5;
+        text-align: left;
+        /* Easier to read on mobile */
+    }
+
+    .about-actions {
+        left: 50%;
+        top: 75%;
+        /* Below text */
+        width: 100%;
+        gap: 20px;
+    }
+
+    .action-link {
+        font-size: 9px;
+        /* Big touch targets */
+    }
+
+    .about-logo {
+        bottom: 10px;
+        width: 90%;
+        left: 5%;
+    }
+
+    /* Landing Page Logo Centering */
+    .logo-container img {
+        object-fit: contain;
+        width: 80%;
+        height: auto;
+        /* Center absolute elements */
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .landing-footer {
+        font-size: 12px;
+        bottom: 20px;
+    }
+}
+
+/* =========================================
+   Contact View Styles
+   ========================================= */
+
+#contact-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: #ffffff;
+    transition: opacity 1s ease, visibility 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-view.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.contact-content {
+    width: 100%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 11px;
+}
+
+.contact-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    line-height: 1.2;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    color: #222222;
+    text-transform: uppercase;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.contact-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 1.2;
+    color: #222222;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    text-decoration: none;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.contact-link:hover {
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    .contact-info {
+        grid-column: 1;
+        align-items: center;
+    }
+    .contact-links {
+        grid-column: 1;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+}
