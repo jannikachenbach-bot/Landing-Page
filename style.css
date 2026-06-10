@@ -110,7 +110,7 @@ body {
     height: 100%;
     z-index: 100;
     background-color: var(--bg-color);
-    transition: opacity 1s ease, visibility 1s, background-color 1s ease;
+    transition: opacity 1s ease, visibility 1s, background-color 0.5s ease;
 }
 
 #landing-view.hidden {
@@ -636,7 +636,7 @@ body {
 
 @media (max-width: 768px) {
     #landing-view {
-        background-color: #ff0000;
+        background-color: #fc1d1e;
     }
     #landing-view:has(.hover-zone:hover),
     #landing-view:has(.hover-zone:active) {
