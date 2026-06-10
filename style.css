@@ -652,7 +652,7 @@ body {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 9px;
     color: #a0a0a0;
@@ -692,7 +692,7 @@ body {
         align-items: flex-start;
         height: 100vh;
         padding-top: 40px;
-        padding-bottom: 40px;
+        padding-bottom: 80px;
         margin-top: 0;
     }
     .contact-info {
