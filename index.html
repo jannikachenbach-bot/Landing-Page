@@ -27,15 +27,13 @@
             <!-- Interaction Zone FIRST for CSS sibling selection -->
             <div class="hover-zone" id="enter-btn"></div>
 
-            <!-- Full screen logos -->
-            <picture class="logo-base">
-                <source media="(max-width: 768px)" srcset="images/red_red_mobile.png">
-                <img src="images/red_red.png" alt="Logo Red" style="width: 100%; height: 100%; object-fit: cover;">
-            </picture>
-            <picture class="logo-hover">
-                <source media="(max-width: 768px)" srcset="images/black_white_mobile.png">
-                <img src="images/black_white.png" alt="Logo BW" style="width: 100%; height: 100%; object-fit: cover;">
-            </picture>
+            <!-- Mobile logos -->
+            <img src="images/red_red_mobile.png" class="logo-base mobile-only" alt="Logo Red">
+            <img src="images/black_white_mobile.png" class="logo-hover mobile-only" alt="Logo BW">
+            
+            <!-- Desktop logos -->
+            <img src="images/red_red.png" class="logo-base desktop-only" alt="Logo Red">
+            <img src="images/black_white.png" class="logo-hover desktop-only" alt="Logo BW">
         </div>
     </div>
 

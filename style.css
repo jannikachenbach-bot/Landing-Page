@@ -163,6 +163,14 @@ body {
     transition: opacity 0.5s ease;
 }
 
+.mobile-only {
+    display: none !important;
+}
+
+.desktop-only {
+    display: block !important;
+}
+
 .logo-hover {
     opacity: 0;
 }
@@ -640,6 +648,12 @@ body {
 }
 
 @media (max-width: 768px) {
+    .mobile-only {
+        display: block !important;
+    }
+    .desktop-only {
+        display: none !important;
+    }
     #landing-view {
         background-color: #fc1d1e;
         transition: opacity 1s ease, visibility 1s;
