@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description"
         content="Totmanschalter: A multidisciplinary practice at the intersection of human creativity and automated precision. Artistic Direction, Production, Architecture and Design.">
@@ -49,8 +51,8 @@
                 </span>
             </div>
             <div class="contact-links">
-                <a href="mailto:contact@totmanschalter.com" class="contact-link">contact@totmanschalter.com</a>
-                <a href="https://instagram.com/totmanschalter" target="_blank" class="contact-link">@totmanschalter</a>
+                <a href="#" id="email-contact" class="contact-link">Email</a>
+                <a href="https://instagram.com/totmanschalter" target="_blank" rel="noopener noreferrer" class="contact-link">@totmanschalter</a>
             </div>
         </div>
         <div class="copyright">© 2026 TOTMANSCHALTER. ALL RIGHTS RESERVED.</div>
@@ -58,6 +60,16 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Anti-spam email obfuscation
+            const emailLink = document.getElementById('email-contact');
+            if (emailLink) {
+                const user = "contact";
+                const domain = "totmanschalter.com";
+                const addr = user + "@" + domain;
+                emailLink.href = "mailto:" + addr;
+                emailLink.textContent = addr;
+            }
+
             const enterBtn = document.getElementById('enter-btn');
             const landingView = document.getElementById('landing-view');
             const contactView = document.getElementById('contact-view');
