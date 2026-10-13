@@ -171,6 +171,10 @@ body {
     display: block !important;
 }
 
+br.desktop-only {
+    display: inline !important;
+}
+
 .logo-hover {
     opacity: 0;
 }
